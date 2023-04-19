@@ -4,12 +4,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:hexcolor/hexcolor.dart';
-
-import 'package:stuffy_club/Screens/Auth/login_screen.dart';
 import '../../FormTextField/Validation_Form_field.dart';
 import 'package:http/http.dart'as http;
+
+import 'login_screen.dart';
 
 class Forget_Password extends StatefulWidget {
   const Forget_Password({Key? key}) : super(key: key);

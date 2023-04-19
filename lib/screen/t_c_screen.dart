@@ -9,7 +9,6 @@ class TCScreen extends StatelessWidget {
    TCScreen({Key? key}) : super(key: key);
 
 
-  // TCController tcController=Get.put(TCController());
 
    Future<TcModel> loadAssets2() async {
      print('stringValue.toString()');

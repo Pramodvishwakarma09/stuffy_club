@@ -82,16 +82,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(child: Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                            image: NetworkImage("${snapshot.data!.profileImage}"),
+                      Center(child: ClipRRect(
+
+                        borderRadius: BorderRadius.circular(500.0),
+                        child: FadeInImage(
+                            height: 150,
+                            width: 150,
+                            fadeInDuration: const Duration(milliseconds: 500),
+                            fadeInCurve: Curves.easeInExpo,
+                            fadeOutCurve: Curves.easeOutExpo,
+                            placeholder: AssetImage(
+                              "asset/images/demoprofile.png",
                             ),
-                            color: Colors.grey,
-                          borderRadius: BorderRadius.circular(150)
-                        ),
-                        height: 120,width: 120,)),
+                            image: NetworkImage(
+                              snapshot.data!.profileImage,
+                            ),
+                            imageErrorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                  child: Image.asset(
+                                      "asset/images/demoprofile.png"));
+                            },
+                            fit: BoxFit.cover),
+                      ),
+                      ),
                       SizedBox(height: 8,),
                       Center(
                         child: Text(

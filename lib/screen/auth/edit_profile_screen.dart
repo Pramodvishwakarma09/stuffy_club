@@ -21,24 +21,24 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
 
-  ProfileController profileController=Get.put(ProfileController());
 
   Future<ProfileModel> loadAssets() async {
+    print('stringValue.toString()');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var stringValue = prefs.getInt('user_id');
-  ProfileModel lm;
-  String url = "http://192.168.1.23:4000/myprofile";
-  http.Response response =
-  await http.post(Uri.parse(url), body: {"id":  stringValue.toString()});
-  print(response.body.toString());
-  Map<String, dynamic> jsonresponse = jsonDecode(response.body);
-  lm = ProfileModel.fromJson(jsonresponse);
 
-  print(jsonresponse);
+    ProfileModel lm;
+    String url = "http://192.168.1.23:4000/myprofile";
+    http.Response response =
+    await http.post(Uri.parse(url), body: {"id": stringValue.toString() });
+    Map<String, dynamic> jsonresponse = jsonDecode(response.body);
 
-  // var  free&paad = data
-  return lm;
-}
+    lm = ProfileModel.fromJson(jsonresponse);
+    fullNameC = TextEditingController(text: '${lm.data[0].fullName}');
+    phoneNumberC = TextEditingController(text:   '${lm.data[0].phoneNumber}');
+    var  _newImage = _image==null? lm.data[0].profileImage:_image;
+    return lm;
+  }
 
    final ImagePicker _picker = ImagePicker();
    File? _image;
@@ -137,9 +137,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     loadAssets();
     // TODO: implement initState
     super.initState();
-    fullNameC = TextEditingController(text: '${profileController.getdata!.data[0].fullName}');
-    phoneNumberC = TextEditingController(text:'${profileController.getdata!.data[0].phoneNumber}');
-   var  _newImage = _image==null? profileController.getdata!.profileImage:_image;
+
   }
 
   // File? imageFile;
@@ -181,9 +179,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 15,),
-                      Container(
-                        color: Colors.greenAccent,
-                          child: Text("sdfsdf",style: TextStyle(color: Colors.red),)),
                       Center(child: _image==null? Container(
                           height: 150,
                           width: 150,
@@ -306,7 +301,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: TextFormField(
                           controller: fullNameC,
                           decoration: InputDecoration(
-                            hintText: "Phone Number",
+                            hintText: "Full Name",
                             contentPadding: EdgeInsets.fromLTRB(15,5,0,0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -327,20 +322,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                       SizedBox(height: 5,),
-                      SizedBox(
-                        height: 50,
-                        child: TextFormField(
+                      TextFormField(
+                        maxLength: 12,
 
-                          keyboardType: TextInputType.number,
-
-                          controller: phoneNumberC,
-                          decoration: InputDecoration(
-
-                            hintText: "Phone Number",
-                            contentPadding: EdgeInsets.fromLTRB(15,5,0,0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                        keyboardType: TextInputType.number,
+                        controller: phoneNumberC,
+                        decoration: InputDecoration(
+                          counter: Container(),
+                          hintText: "Phone Number",
+                          contentPadding: EdgeInsets.fromLTRB(15,5,0,0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                       ),

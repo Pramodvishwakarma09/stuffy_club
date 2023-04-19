@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
-import 'package:stuffy_club/Screens/Auth/login_screen.dart';
 import '../../FormTextField/Validation_Form_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../t_c_screen.dart';
+import 'login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);

@@ -5,12 +5,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stuffy_club/Screens/Auth/login_screen.dart';
-import 'package:stuffy_club/Screens/Auth/profile_screen.dart';
 import 'package:stuffy_club/models/profile_model.dart';
 import '../controller/home_controller.dart';
 import '../controller/profile_controller.dart';
 import '../models/home_model.dart';
+import 'Auth/login_screen.dart';
+import 'auth/profile_screen.dart';
 import 'notification_screen.dart';
 import 'product_by_category_Screen.dart';
 import 'product_deatails.dart';
@@ -568,7 +568,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               ProductByCategoryScreen(
-                                                cname: snapshot.data!.categories[index].categoryName,
+                                                  cname: snapshot
+                                                      .data!
+                                                      .categories[index]
+                                                      .categoryName,
                                                   category_id: int.parse(
                                                       snapshot.data!
                                                           .categories[index].id
@@ -929,25 +932,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         width: 15,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProfileScreen(),
-                              ));
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  snapshot.data!.profileImage,
-                                ),
-                                fit: BoxFit.fill,
-                              )),
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30.0),
+                          child: FadeInImage(
+                              height: 50,
+                              width: 50,
+                              fadeInDuration: const Duration(milliseconds: 500),
+                              fadeInCurve: Curves.easeInExpo,
+                              fadeOutCurve: Curves.easeOutExpo,
+                              placeholder: AssetImage(
+                                "asset/images/demoprofile.png",
+                              ),
+                              image: NetworkImage(
+                                snapshot.data!.profileImage,
+                              ),
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                    child: Image.asset(
+                                        "asset/images/demoprofile.png"));
+                              },
+                              fit: BoxFit.cover),
                         ),
                       ),
                       SizedBox(
@@ -968,7 +978,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             snapshot.data!.data[0].fullName,
                             style:
-                            TextStyle(fontSize: 14, color: Colors.black54),
+                                TextStyle(fontSize: 14, color: Colors.black54),
                           ),
                         ],
                       ),
@@ -978,7 +988,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) =>  NotificationScreen()));
+                                  builder: (_) => NotificationScreen()));
                         },
                         child: SvgPicture.asset(
                             'asset/new icons/Notification.svg'),
@@ -989,12 +999,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       InkWell(
                         onTap: () async {
                           SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
+                              await SharedPreferences.getInstance();
                           prefs.setBool("isLoggedIn", false);
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const LoginScreen()));
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const LoginScreen()),
+                            (route) => false,
+                          );
                         },
                         child: SvgPicture.asset('asset/new icons/Icon (6).svg'),
                       ),

@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:stuffy_club/Screens/Auth/login_screen.dart';
+
+import '../Auth/login_screen.dart';
 
 
 class Onboarding_4 extends StatefulWidget {

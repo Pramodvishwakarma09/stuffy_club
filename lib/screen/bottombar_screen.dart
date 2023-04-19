@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'My_Sprites.dart';
+import 'auth/profile_screen.dart';
 import 'qr_screen2.dart';
 import 'test.dart';
 import 'home_screen.dart';
-import '../Screens/Auth/profile_screen.dart';
 import 'my_stuffy_screen.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
@@ -74,7 +74,7 @@ class _BottomBar_ScreenState extends State<BottomBar_Screen> {
           ),
 
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(true),
+            onPressed: () => Navigator.of(context)..pop(true),
             //return true when click on "Yes"
             child:Text('Yes'),
           ),

@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stuffy_club/Screens/Auth/sign_up_screen.dart';
+import 'package:stuffy_club/screen/auth/sign_up_screen.dart';
 import '../../FormTextField/Validation_Form_field.dart';
 import '../bottombar_screen.dart';
 import 'forget_password_screen.dart';
@@ -68,7 +68,6 @@ class _LoginScreenState extends State<LoginScreen> {
           prefs.setBool("isLoggedIn", true);
           prefs.setInt('user_id', user_id);
 
-
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => BottomBar_Screen()),
@@ -93,17 +92,14 @@ class _LoginScreenState extends State<LoginScreen> {
             fontSize: 16.0,
             //font size
           );
-
         }
       } else {
-
         setState(() {
           loading = false;
         });
         print('failed');
       }
     } catch (e) {
-
       setState(() {
         loading = false;
         Fluttertoast.showToast(
@@ -140,7 +136,6 @@ class _LoginScreenState extends State<LoginScreen> {
     // TODO: implement initState
     super.initState();
     getStringValuesSF();
-
   }
 
   @override
